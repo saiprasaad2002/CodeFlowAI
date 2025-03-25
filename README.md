@@ -42,11 +42,34 @@ This project is intended for developers and teams requiring automated code gener
 The application follows a microservices-inspired design with a central FastAPI server routing requests to specialized endpoints. Each endpoint interacts with controllers, services, and repositories, leveraging AWS Bedrock for LLM capabilities, PostgreSQL for data persistence, and S3 for file storage.
 
 ### Workflow
-1. **User Input**: A request hits an endpoint (e.g., `/queryValidator`) with query, email, and optional repo/file data.
+1. **User Input**: A request hits an endpoint (`/queryValidator`) with query, email, and optional repo/file data.
 2. **Validation**: Input is validated using Pydantic models and custom logic.
 3. **Routing**: The request is routed to subsequent endpoints (e.g., `/instructionGenerator`, `/codeGenerator`) via HTTP redirects.
 4. **Processing**: LLM calls via Bedrock generate descriptions or code, while database operations store results.
 5. **Response**: A JSON response is returned with status codes and data.
+
+## API Routing Strategy
+
+The application employs a **dynamic routing strategy** built around a pipeline of FastAPI endpoints, where each endpoint performs a specific task and conditionally forwards the processed payload to the next relevant endpoint using asynchronous HTTP redirects. This approach mimics a workflow orchestration pattern, ensuring modularity, scalability, and clear separation of concerns.
+
+### Key Components
+- **Entry Point**: The `/queryValidator` endpoint serves as the primary entry point, receiving user queries and determining the initial routing path based on input data (e.g., presence of `repo_id` or `file_structure`).
+- **Conditional Routing**: The `route_function` utility in `app.py` handles asynchronous HTTP POST requests to subsequent endpoints (e.g., `/instructionGenerator`, `/chunkPopulator`) using `httpx.AsyncClient`. Routing decisions are driven by the `status` field in the response:
+  - `"instructionGenerator"`: Routes to `/instructionGenerator` for intent identification and instruction generation.
+  - `"chunkPopulator"`: Routes to `/chunkPopulator` for code chunking and processing.
+- **Pipeline Progression**: Each endpoint processes its specific task (e.g., `/contentAggregator` consolidates chunk descriptions, `/codeGenerator` generates code) and forwards the result to the next endpoint (e.g., `/repoConsolidator` for final storage).
+- **Error Handling**: If an error occurs during routing (timeout, HTTP failure), the response includes a `statuscode` and error message, halting the pipeline and informing the client.
+
+- **Routing Function (`route_function`)**:
+  ```python
+  async def route_function(response, API_name):
+      async with httpx.AsyncClient() as client:
+          sample = await client.post(
+              f"http://k8s-poc-rndpocin-baeb333b97-1835103098.us-east-1.elb.amazonaws.com:8080/{API_name}",
+              json=response,
+              timeout=300.0
+          )
+          return sample.json() if sample.status_code == 200 else {"error": f"API {API_name} failed", "statuscode": sample.status_code}
 
 ## Prerequisites
 - Python 3.12
