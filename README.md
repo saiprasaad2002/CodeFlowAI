@@ -1,20 +1,11 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# DesignDevTest Repository
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+![Python](https://img.shields.io/badge/Python-3.12-blue.svg) ![FastAPI](https://img.shields.io/badge/FastAPI-0.115.7-green.svg) ![AWS](https://img.shields.io/badge/AWS-Bedrock%20%7C%20S3-orange.svg) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-SQLAlchemy-blue.svg)
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Overview
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+The **DesignDevTest** repository hosts a microservices-based application built with Python, FastAPI, and SQLAlchemy, designed to process user queries, manage code repositories, and generate code or content using AWS Bedrock's Large Language Model (LLM). It leverages a PostgreSQL database for persistent storage, AWS S3 for file management, and a modular architecture with endpoints like `/queryValidator`, `/chunkPopulator`, `/contentAggregator`, `/instructionGenerator`, `/codeGenerator`, and `/repoConsolidator`. The system is containerized using Docker for scalable deployment.
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+This project is intended for developers and teams requiring automated code generation, repository consolidation, and content aggregation, with robust error handling and database interactions.
+
+## Project Structure
