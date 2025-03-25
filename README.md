@@ -8,6 +8,8 @@ This project hosts a microservices-based application built with Python, FastAPI,
 
 This project is intended for developers and teams requiring automated code generation, repository consolidation, and content aggregation, with robust error handling and database interactions.
 
+(https://excalidraw.com/#json=VOCRBZCqurOvPFGPSvr2o,7DDMw_xaToEoDkUqQEl1Zg)
+
 ## Project Structure
 ```
 ├── app.py                  # FastAPI application with API endpoints
