@@ -9,6 +9,7 @@ The **DesignDevTest** hosts a microservices-based application built with Python,
 This project is intended for developers and teams requiring automated code generation, repository consolidation, and content aggregation, with robust error handling and database interactions.
 
 ## Project Structure
+```
 ├── app.py                  # FastAPI application with API endpoints
 ├── controller.py           # Controller logic for routing and validation
 ├── services.py             # Business logic for query processing and code generation
@@ -21,6 +22,7 @@ This project is intended for developers and teams requiring automated code gener
 ├── Dockerfile              # Docker configuration for containerization
 ├── requirements.txt        # Python dependencies
 └── README.md               # This file
+```
 
 
 ## Key Features
@@ -54,3 +56,11 @@ The application follows a microservices-inspired design with a central FastAPI s
 - AWS account with Bedrock, S3, and Secrets Manager access
 - PostgreSQL database
 
+| Method | Endpoint              | Description                                      |
+|--------|-----------------------|--------------------------------------------------|
+| POST   | `/queryValidator`     | Validates user query and determines processing route. |
+| POST   | `/instructionGenerator` | Generates instructions based on validated queries. |
+| POST   | `/chunkPopulator`     | Splits and processes large code into chunks.     |
+| POST   | `/contentAggregator`  | Aggregates and summarizes chunked content.       |
+| POST   | `/codeGenerator`      | Generates AI-assisted code based on user instructions. |
+| POST   | `/repoConsolidator`   | Consolidates generated code into the repository. |
