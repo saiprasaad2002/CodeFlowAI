@@ -4,7 +4,7 @@
 
 ## Overview
 
-The **DesignDevTest** hosts a microservices-based application built with Python, FastAPI, and SQLAlchemy, designed to process user queries, manage code repositories, and generate code or content using AWS Bedrock's Large Language Model (Claude). Leverages a PostgreSQL database for persistent storage, AWS S3 for file management, and a modular architecture with endpoints `/queryValidator`, `/chunkPopulator`, `/contentAggregator`, `/instructionGenerator`, `/codeGenerator`, and `/repoConsolidator`. The system is containerized using Docker for scalable deployment.
+This project hosts a microservices-based application built with Python, FastAPI, and SQLAlchemy, designed to process user queries, manage code repositories, and generate code or content using AWS Bedrock's Large Language Model (Claude). Leverages a PostgreSQL database for persistent storage, AWS S3 for file management, and a modular architecture with endpoints `/queryValidator`, `/chunkPopulator`, `/contentAggregator`, `/instructionGenerator`, `/codeGenerator`, and `/repoConsolidator`. The system is containerized using Docker for scalable deployment.
 
 This project is intended for developers and teams requiring automated code generation, repository consolidation, and content aggregation, with robust error handling and database interactions.
 
@@ -48,13 +48,13 @@ The application follows a microservices-inspired design with a central FastAPI s
 4. **Processing**: LLM calls via Bedrock generate descriptions or code, while database operations store results.
 5. **Response**: A JSON response is returned with status codes and data.
 
-## Setup and Installation
-
-### Prerequisites
+## Prerequisites
 - Python 3.12
 - Docker (optional for containerized deployment)
 - AWS account with Bedrock, S3, and Secrets Manager access
 - PostgreSQL database
+
+## Endpoints
 
 | Method | Endpoint              | Description                                      |
 |--------|-----------------------|--------------------------------------------------|
